@@ -163,7 +163,7 @@
 			if(is_null($entry_id)) return null;
 
 			$activation_role_id = null;
-			$activation = extension_Members::getField('activation', $this->get('parent_section'));
+			$activation = ExtensionManager::getInstance('members')->getField('activation', $this->get('parent_section'));
 			if(!is_null($activation) && !is_null($entry_id)) {
 				$entry = EntryManager::fetch($entry_id);
 				$entry = $entry[0];
