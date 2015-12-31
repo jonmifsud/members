@@ -2,7 +2,6 @@
 
 	require_once TOOLKIT . '/fields/field.select.php';
 	require_once(EXTENSIONS . '/members/lib/class.role.php');
-	require_once(EXTENSIONS . '/members/extension.driver.php');
 
 	Class fieldMemberRole extends fieldSelect {
 
