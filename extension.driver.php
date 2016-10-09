@@ -630,6 +630,12 @@
 					in_array('member-update-password', $selected),
 					__('Members: Update Password')
 				);
+				// Add Member: Update Password filter
+				$context['options'][] = array(
+					'member-login',
+					in_array('member-login', $selected),
+					__('Members: Auto Login on Registration')
+				);
 			}
 		}
 
@@ -1003,7 +1009,10 @@
 				if($this->getMemberDriver()->getMember() instanceOf Entry) {
 					$required_level = EventPermissions::OWN_ENTRIES;
 					$role_data = $this->getMemberDriver()->getMember()->getData(extension_Members::getField('role')->get('id'));
-					$role_id = $role_data['role_id'];
+					$role_id = $role_data;
+					if (is_array($role_data)){
+						$role_id = $role_data['role_id'];
+					}
 
 					if($action == 'edit' && method_exists($context['event'], 'getSource')) {
 						$section_id = $context['event']->getSource();
@@ -1119,6 +1128,9 @@
 		public function processPostSaveFilter(array &$context) {
 			// Process updating a Member's Password
 			if (in_array('member-update-password', $context['event']->eParamFILTERS)) {
+				$this->getMemberDriver()->filter_UpdatePasswordLogin($context);
+			}
+			if (in_array('member-login', $context['event']->eParamFILTERS)) {
 				$this->getMemberDriver()->filter_UpdatePasswordLogin($context);
 			}
 		}

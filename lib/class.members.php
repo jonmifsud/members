@@ -119,7 +119,11 @@
 
 			if(!is_null(extension_Members::getFieldHandle('role'))) {
 				$role_data = $this->getMember()->getData(extension_Members::getField('role')->get('id'));
-				$role = RoleManager::fetch($role_data['role_id']);
+				$roleID = $role_data;
+				if (is_array($role_data)){
+					$roleID = $role_data['role_id'];
+				}
+				$role = RoleManager::fetch($roleID);
 				if($role instanceof Role) {
 					$context['params']['member-role'] = $role->get('name');
 				}
